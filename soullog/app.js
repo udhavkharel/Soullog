@@ -530,5 +530,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Initial Route Check? Handled by auth listener mostly
 });
+
