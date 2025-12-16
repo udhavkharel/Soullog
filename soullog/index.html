@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoulLog | Your Private Journal</title>
+    <link rel="stylesheet" href="style.css">
+
+<body>
+    <header class="app-header">
+        <div class="container header-content">
+            <div class="logo" onclick="navigateTo('view-dashboard')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+                SoulLog
+            </div>
+            <nav id="nav-menu">
+                <span class="auth-hidden">
+                    <button onclick="navigateTo('view-login')" class="btn btn-text">Log In</button>
+                    <button onclick="navigateTo('view-signup')" class="btn btn-primary">Start</button>
+                </span>
+                <span class="view hidden" id="nav-auth-links" style="display: contents;">
+                    <!-- We use CSS logic to show/hide based on view but for SPA easier to toggle class on container -->
+                </span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- LANDING VIEW -->
+        <section id="view-landing" class="view container text-center">
+            <div style="padding: 4rem 0;">
+                <h1 class="mb-sm">Your Private Space for Emotional Clarity</h1>
+                <p class="text-gentle" style="font-size: 1.25rem; max-width: 600px; margin: 0 auto 2rem;">SoulLog is a
+                    calm, minimal journal designed to help you process your thoughts freely. No social pressure, no
+                    metrics, just you.</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem;">
+                    <button onclick="navigateTo('view-signup')" class="btn btn-primary">Create Free Account</button>
+                    <button onclick="navigateTo('view-about')" class="btn btn-outline">Learn More</button>
+                </div>
+            </div>
+            <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                <div class="card">
+                    <h3 style="color: var(--primary-color)">Write Freely</h3>
+                    <p>A simple, distraction-free interface.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--primary-color)">Track Moods</h3>
+                    <p>Gentle mood logging helps you see patterns.</p>
+                </div>
+                <div class="card">
+                    <h3 style="color: var(--primary-color)">Private</h3>
+                    <p>Your entries are accessible only by you.</p>
+                </div>
+            </section>
+        </section>
+
+        <!-- LOGIN VIEW -->
+        <section id="view-login" class="view hidden container" style="max-width: 400px;">
+            <div class="text-center mb-md">
+                <h2>Welcome Back</h2>
+            </div>
+            <div class="card">
+                <div id="login-error" class="message message-error hidden"></div>
+                <form id="login-form">
+                    <div class="form-group"><label>Email</label><input type="email" id="login-email" required></div>
+                    <div class="form-group"><label>Password</label><input type="password" id="login-pass" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Log In</button>
+                </form>
+                <div class="text-center mt-md"><button class="guest-btn btn btn-outline btn-block">Continue as
+                        Guest</button></div>
+            </div>
+            <div class="text-center mt-md">
+                <p class="text-small">No account? <button onclick="navigateTo('view-signup')" class="btn btn-text"
+                        style="color:var(--primary-color)">Sign Up</button></p>
+            </div>
+        </section>
+
+        <!-- SIGNUP VIEW -->
+        <section id="view-signup" class="view hidden container" style="max-width: 400px;">
+            <div class="text-center mb-md">
+                <h2>Join SoulLog</h2>
+            </div>
+            <div class="card">
+                <div id="signup-error" class="message message-error hidden"></div>
+                <form id="signup-form">
+                    <div class="form-group"><label>Email</label><input type="email" id="signup-email" required></div>
+                    <div class="form-group"><label>Password</label><input type="password" id="signup-pass" required
+                            placeholder="Min 6 chars"></div>
+                    <div class="form-group"><label>Confirm</label><input type="password" id="signup-confirm" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                </form>
+                <div class="text-center mt-md"><button class="guest-btn btn btn-outline btn-block">Continue as
+                        Guest</button></div>
+            </div>
+            <div class="text-center mt-md">
+                <p class="text-small">Have an account? <button onclick="navigateTo('view-login')" class="btn btn-text"
+                        style="color:var(--primary-color)">Log In</button></p>
+            </div>
+        </section>
+
+        <!-- DASHBOARD VIEW -->
+        <section id="view-dashboard" class="view hidden container">
+            <div style="margin-bottom: 2rem;">
+                <h1><span id="greeting-text">Hello,</span></h1>
+                <p class="text-gentle">How are you feeling right now?</p>
+            </div>
+            <div class="card text-center">
+                <h3 class="mb-md">Check In</h3>
+                <div class="mood-selector">
+                    <button class="mood-btn quick-mood-btn" data-mood="great">😊</button>
+                    <button class="mood-btn quick-mood-btn" data-mood="good">🙂</button>
+                    <button class="mood-btn quick-mood-btn" data-mood="okay">😐</button>
+                    <button class="mood-btn quick-mood-btn" data-mood="bad">😔</button>
+                    <button class="mood-btn quick-mood-btn" data-mood="terrible">😣</button>
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <button onclick="navigateTo('view-new-entry')" class="card text-center"
+                    style="border-color: var(--primary-color);">
+                    <h3 style="color: var(--primary-color)">+ New Entry</h3>
+                </button>
+                <button onclick="navigateTo('view-entries')" class="card text-center">
+                    <h3>Entries</h3>
+                </button>
+                <button onclick="navigateTo('view-insights')" class="card text-center">
+                    <h3>Insights</h3>
+                </button>
+                <button onclick="navigateTo('view-settings')" class="card text-center">
+                    <h3>Settings</h3>
+                </button>
+            </div>
+        </section>
+
+        <!-- NEW ENTRY VIEW -->
+        <section id="view-new-entry" class="view hidden container">
+            <div class="card">
+                <div class="mb-md">
+                    <h2>How are you feeling?</h2>
+                </div>
+                <div class="mood-selector mb-md" style="justify-content: flex-start;">
+                    <button class="mood-btn mood-btn-select" data-mood="great">😊</button>
+                    <button class="mood-btn mood-btn-select" data-mood="good">🙂</button>
+                    <button class="mood-btn mood-btn-select" data-mood="okay">😐</button>
+                    <button class="mood-btn mood-btn-select" data-mood="bad">😔</button>
+                    <button class="mood-btn mood-btn-select" data-mood="terrible">😣</button>
+                </div>
+                <div class="form-group">
+                    <textarea id="new-entry-text" placeholder="Write freely here..."
+                        style="min-height: 300px; font-size: 1.1rem; border: none; background: transparent; padding: 0; box-shadow: none; resize: none;"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                    <button onclick="navigateTo('view-dashboard')" class="btn btn-text">Cancel</button>
+                    <button id="save-entry-btn" class="btn btn-primary">Save Entry</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ENTRIES LIST VIEW -->
+        <section id="view-entries" class="view hidden container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="margin:0">Journal</h2>
+                <button onclick="navigateTo('view-dashboard')" class="btn btn-text">Back</button>
+            </div>
+            <div id="entries-list"></div>
+        </section>
+
+        <!-- ENTRY DETAIL VIEW -->
+        <section id="view-entry-detail" class="view hidden container" data-current-id="">
+            <div class="card">
+                <!-- View Mode -->
+                <div id="detail-view-mode">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
+                        <div>
+                            <p id="view-date" class="text-small text-gentle" style="margin-bottom: 0.5rem;"></p>
+                            <h2 style="font-size: 3rem; margin: 0;" id="view-mood-emoji"></h2>
+                        </div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button onclick="navigateTo('view-entries')" class="btn btn-text">Back</button>
+                            <button id="detail-edit-btn" class="btn btn-outline">Edit</button>
+                        </div>
+                    </div>
+                    <div id="view-text" style="font-size: 1.1rem; line-height: 1.8; white-space: pre-wrap;"></div>
+                    <div class="mt-lg"><button id="detail-delete-btn" class="btn btn-text"
+                            style="color: var(--error-color);">Delete</button></div>
+                </div>
+                <!-- Edit Mode -->
+                <div id="detail-edit-mode" class="hidden">
+                    <div class="mood-selector mb-md" style="justify-content: flex-start;">
+                        <button class="mood-btn" data-mood="great">😊</button>
+                        <button class="mood-btn" data-mood="good">🙂</button>
+                        <button class="mood-btn" data-mood="okay">😐</button>
+                        <button class="mood-btn" data-mood="bad">😔</button>
+                        <button class="mood-btn" data-mood="terrible">😣</button>
+                    </div>
+                    <div class="form-group"><textarea id="edit-text" style="min-height: 300px;"></textarea></div>
+                    <div style="display: flex; gap: 1rem; justify-content: flex-end;">
+                        <button id="detail-cancel-btn" class="btn btn-text">Cancel</button>
+                        <button id="detail-save-btn" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INSIGHTS VIEW -->
+        <section id="view-insights" class="view hidden container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="margin:0">Insights</h2>
+                <button onclick="navigateTo('view-dashboard')" class="btn btn-text">Back</button>
+            </div>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+                <div class="card text-center"><span class="text-gentle text-small">Total Entries</span>
+                    <h2 id="total-entries" style="color: var(--primary-color);">-</h2>
+                </div>
+                <div class="card text-center"><span class="text-gentle text-small">Streak</span>
+                    <h2 id="current-streak" style="color: var(--primary-color);">-</h2>
+                </div>
+                <div class="card text-center"><span class="text-gentle text-small">Top Mood</span>
+                    <h2 id="top-mood" style="color: var(--primary-color); font-size: 1.5rem;">-</h2>
+                </div>
+            </div>
+            <div class="card">
+                <h3 class="mb-md">Mood Distribution</h3>
+                <div id="mood-chart"></div>
+            </div>
+        </section>
+
+        <!-- SETTINGS VIEW -->
+        <section id="view-settings" class="view hidden container">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="margin:0">Settings</h2>
+                <button onclick="navigateTo('view-dashboard')" class="btn btn-text">Back</button>
+            </div>
+            <div class="card">
+                <h3>Account</h3>
+                <p class="text-gentle mb-sm">Signed in as: <strong id="user-email">...</strong></p>
+                <button class="logout-btn btn btn-outline" style="font-size: 0.9rem;">Log Out</button>
+            </div>
+            <div class="card">
+                <h3>Appearance</h3>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <label for="theme-toggle" style="margin: 0;">Dark Mode</label>
+                    <input type="checkbox" id="theme-toggle" style="width: auto;">
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT VIEW -->
+        <section id="view-about" class="view hidden container">
+            <div class="card">
+                <h1>About SoulLog</h1>
+                <p>SoulLog is a private journal and emotional health tracker.</p>
+                <h3 class="mt-md">Disclaimer</h3>
+                <div class="message message-error" style="color: var(--text-color);">
+                    <p>We do not provide medical advice. If you are in crisis, please seek professional help.</p>
+                </div>
+                <button onclick="window.history.back()" class="btn btn-primary mt-md">Back</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="container text-center"
+        style="padding: 2rem 0; margin-top: auto; border-top: 1px solid var(--border-color);">
+        <p class="text-small text-gentle">&copy; 2025 SoulLog.</p>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+</body>
+
+</html>
